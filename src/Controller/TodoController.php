@@ -19,6 +19,7 @@ class TodoController extends AbstractController
     public function index(TodoRepository $todoRepository): Response
     {
         $todos = $todoRepository->findAll();
+        dump($todos);
         return $this->render('todo/index.html.twig', [
             'todos' => $todos,
         ]);
@@ -41,8 +42,43 @@ class TodoController extends AbstractController
             return $this->redirectToRoute('todo_index');
         }
 
-        return $this->render('todo/new.html.twig', [
+        return $this->render('todo/index.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/todo/{id}/edit", name="todo_edit")
+     */
+    public function edit(Todo $todo, Request $request): Response
+    {
+        $form = $this->createForm(TodoType::class, $todo);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Mettre à jour la tâche
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('todo_index');
+        }
+
+        return $this->render('todo/edit.html.twig', [
+            'todo' => $todo,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/todo/{id}/delete", name="todo_delete", methods={"DELETE"})
+     */
+    public function delete(Todo $todo): Response
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($todo);
+        $entityManager->flush();
+
+        // Rediriger vers la page de la liste des tâches après la suppression
+        return $this->redirectToRoute('todo_index');
     }
 }

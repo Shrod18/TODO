@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Todo List{% endblock %}
+
+{% block body %}
+    <h1>Todo List</h1>
+    <a href="{{ path('todo_new') }}">Ajouter une nouvelle tâche</a>
+
+    <ul>
+    {% for todo in todos %}
+        <li>
+            {{ todo.title }} - {{ todo.done ? 'Valider' : 'Retour' }}
+            <a href="{{ path('todo_edit', {'id': todo.id}) }}">Modifier</a>
+            <a href="{{ path('todo_delete', {'id': todo.id}) }}">Supprimer</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

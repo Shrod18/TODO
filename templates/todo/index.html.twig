@@ -4,13 +4,22 @@ Todo List
 {% endblock %} 
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('css/materialize.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('css/todo.css') }}" />
 {% endblock %} 
 
 {% block body %}
 <h1>Todo List</h1>
 <a href="{{ path('todo_new') }}">Ajouter une nouvelle tâche</a>
+
+<form method="get" action="{{ path('todo_index') }}">
+<!-- Formulaire de filtre -->  
+  <label for="filter">Filtrer par statut :</label>
+  <select name="filter" id="filter" onchange="this.form.submit()">
+      <option value="">Toutes</option>
+      <option value="done" {{ app.request.get('filter') == 'done' ? 'selected' : '' }}>✅ Validées</option>
+      <option value="pending" {{ app.request.get('filter') == 'pending' ? 'selected' : '' }}>⏳ En cours</option>
+  </select>
+</form>
 
 <ul>
   {% for todo in todos %}

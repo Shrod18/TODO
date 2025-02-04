@@ -16,9 +16,18 @@ class TodoController extends AbstractController
     /**
      * @Route("/", name="todo_index")
      */
-    public function index(TodoRepository $todoRepository): Response
+    public function index(TodoRepository $todoRepository, Request $request): Response
     {
-        $todos = $todoRepository->findAll();
+        $filter = $request->query->get('filter'); // Récupérer le filtre depuis l'URL
+
+        if ($filter === 'done') {
+            $todos = $todoRepository->findBy(['done' => true]);
+        } elseif ($filter === 'pending') {
+            $todos = $todoRepository->findBy(['done' => false]);
+        } else {
+            $todos = $todoRepository->findAll();
+        }
+
         return $this->render('todo/index.html.twig', [
             'todos' => $todos,
         ]);

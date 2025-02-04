@@ -48,40 +48,49 @@ class TodoController extends AbstractController
     }
 
     /**
- * @Route("/todo/{id}/edit", name="todo_edit")
- */
-public function edit(int $id, TodoRepository $todoRepository, Request $request): Response
-{
-    $todo = $todoRepository->find($id);
-    if (!$todo) {
-        throw new NotFoundHttpException("Tâche introuvable !");
+     * @Route("/todo/{id}/edit", name="todo_edit")
+     */
+    public function edit(int $id, TodoRepository $todoRepository, Request $request): Response
+    {
+        $todo = $todoRepository->find($id);
+        if (!$todo) {
+            throw new NotFoundHttpException("Tâche introuvable !");
+        }
+
+        $form = $this->createForm(TodoType::class, $todo);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('todo_index');
+        }
+
+        return $this->render('todo/update.html.twig', [
+            'todo' => $todo,
+            'form' => $form->createView(),
+        ]);
     }
-
-    $form = $this->createForm(TodoType::class, $todo);
-    $form->handleRequest($request);
-
-    if ($form->isSubmitted() && $form->isValid()) {
-        $this->getDoctrine()->getManager()->flush();
-        return $this->redirectToRoute('todo_index');
-    }
-
-    return $this->render('todo/update.html.twig', [
-        'todo' => $todo,
-        'form' => $form->createView(),
-    ]);
-}
 
 
     /**
-     * @Route("/todo/{id}/delete", name="todo_delete", methods={"DELETE"})
+     * @Route("/todo/{id}/delete", name="todo_delete", methods={"POST", "DELETE"})
      */
-    public function delete(Todo $todo): Response
+    public function delete(Request $request, TodoRepository $todoRepository, int $id): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($todo);
-        $entityManager->flush();
+        // Récupérer l'entité manuellement
+        $todo = $todoRepository->find($id);
+        if (!$todo) {
+            throw $this->createNotFoundException("Tâche introuvable !");
+        }
 
-        // Rediriger vers la page de la liste des tâches après la suppression
+        // Vérifier le token CSRF
+        if ($this->isCsrfTokenValid('delete' . $todo->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($todo);
+            $entityManager->flush();
+        }
+
         return $this->redirectToRoute('todo_index');
     }
+
 }

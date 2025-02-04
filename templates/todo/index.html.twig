@@ -11,11 +11,16 @@
     <a href="{{ path('todo_new') }}">Ajouter une nouvelle tâche</a>
 
     <ul>
-    {% for todo in todos %}
+        {% for todo in todos %}
         <li>
             {{ todo.title }} - {{ todo.done ? 'Valider' : 'Retour' }}
             <a href="{{ path('todo_edit', {'id': todo.id}) }}">Modifier</a>
-            <a href="{{ path('todo_delete', {'id': todo.id}) }}">Supprimer</a>
+    
+            <form action="{{ path('todo_delete', {'id': todo.id}) }}" method="post" style="display:inline;">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ todo.id) }}">
+                <button type="submit" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche ?');">Supprimer</button>
+            </form>
         </li>
     {% endfor %}
     </ul>

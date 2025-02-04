@@ -9,7 +9,8 @@
 {% block body %}
     <h1>Ajouter une nouvelle tâche</h1>
     {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit">Ajouter</button>
     {{ form_end(form) }}
-    <button type="submit">Ajouter</button>
     <a href="{{ path('todo_index') }}">Retour à la liste</a>
 {% endblock %}

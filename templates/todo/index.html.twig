@@ -1,27 +1,46 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Todo List{% endblock %}
+{% extends 'base.html.twig' %} 
+{% block title %}
+Todo List
+{% endblock %} 
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/todo.css') }}">
-{% endblock %}
+<link rel="stylesheet" href="{{ asset('css/todo.css') }}" />
+{% endblock %} 
 
 {% block body %}
-    <h1>Todo List</h1>
-    <a href="{{ path('todo_new') }}">Ajouter une nouvelle tâche</a>
+<h1>Todo List</h1>
+<a href="{{ path('todo_new') }}">Ajouter une nouvelle tâche</a>
 
-    <ul>
-        {% for todo in todos %}
-        <li>
-            {{ todo.title }} - {{ todo.done ? 'Valider' : 'Retour' }}
-            <a href="{{ path('todo_edit', {'id': todo.id}) }}">Modifier</a>
-    
-            <form action="{{ path('todo_delete', {'id': todo.id}) }}" method="post" style="display:inline;">
-                <input type="hidden" name="_method" value="DELETE">
-                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ todo.id) }}">
-                <button type="submit" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche ?');">Supprimer</button>
-            </form>
-        </li>
-    {% endfor %}
-    </ul>
+<ul>
+  {% for todo in todos %}
+  <li>
+    <strong>{{ todo.title }}</strong> -
+    {{ todo.description }}
+    <span style="color: {{ todo.done ? 'green' : 'orange' }}">
+      {{ todo.done ? "✅ Valider" : "⏳ En cours" }}
+    </span>
+
+    <a href="{{ path('todo_edit', { id: todo.id }) }}">Modifier</a>
+
+    <form
+      action="{{ path('todo_delete', { id: todo.id }) }}"
+      method="post"
+      style="display: inline"
+    >
+      <input type="hidden" name="_method" value="DELETE" />
+      <input
+        type="hidden"
+        name="_token"
+        value="{{ csrf_token('delete' ~ todo.id) }}"
+      />
+      <button
+        type="submit"
+        onclick="return confirm('Voulez-vous vraiment supprimer cette tâche ?');"
+      >
+        Supprimer
+      </button>
+    </form>
+  </li>
+  {% endfor %}
+</ul>
 {% endblock %}

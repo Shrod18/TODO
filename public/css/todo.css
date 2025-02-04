@@ -1,45 +1,103 @@
+/* 🌟 Style général */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
     margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+/* 🎯 Titres */
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* 📋 Style de la liste */
+ul {
+    list-style: none;
     padding: 0;
 }
 
-h1 {
-    color: #333;
+li {
+    background: white;
+    margin: 10px auto;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
+/* 📝 Formulaires */
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    width: 50%;
+    margin: auto;
+}
+
+form input, form textarea {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* 🔘 Boutons */
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    align-self: center;
+    margin-top: 15px;
+    width: 100%;
+    max-width: 200px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* 🏷️ Liens */
 a {
-    color: #007bff;
     text-decoration: none;
+    color: #007BFF;
+    font-weight: bold;
+    margin-top: 10px;
+    border:1px solid #007bff;
+    padding: 5px;
+    border-radius: 5px;
+    display: inline-block;
 }
 
 a:hover {
     text-decoration: underline;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
+/* ✅ Statut des tâches */
+.status-done {
+    color: green;
+    font-weight: bold;
 }
 
-li {
-    background-color: #fff;
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+.status-pending {
+    color: orange;
+    font-weight: bold;
 }
 
-button {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #c82333;
+form div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
 }

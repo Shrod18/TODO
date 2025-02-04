@@ -1,4 +1,3 @@
-/* 🌟 Style général */
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f9;
@@ -7,13 +6,11 @@ body {
     text-align: center;
 }
 
-/* 🎯 Titres */
 h1 {
     color: #333;
     margin-bottom: 20px;
 }
 
-/* 📋 Style de la liste */
 ul {
     list-style: none;
     padding: 0;
@@ -31,7 +28,6 @@ li {
     align-items: center;
 }
 
-/* 📝 Formulaires */
 form {
     background: white;
     padding: 20px;
@@ -49,7 +45,6 @@ form input, form textarea {
     border-radius: 5px;
 }
 
-/* 🔘 Boutons */
 button {
     background-color: #007BFF;
     color: white;
@@ -68,7 +63,6 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* 🏷️ Liens */
 a {
     text-decoration: none;
     color: #007BFF;
@@ -84,7 +78,6 @@ a:hover {
     text-decoration: underline;
 }
 
-/* ✅ Statut des tâches */
 .status-done {
     color: green;
     font-weight: bold;

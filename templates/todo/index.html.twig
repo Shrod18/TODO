@@ -4,6 +4,7 @@ Todo List
 {% endblock %} 
 
 {% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/materialize.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('css/todo.css') }}" />
 {% endblock %} 
 
@@ -13,14 +14,14 @@ Todo List
 
 <ul>
   {% for todo in todos %}
-  <li>
-    <strong>{{ todo.title }}</strong> -
-    {{ todo.description }}
-    <span style="color: {{ todo.done ? 'green' : 'orange' }}">
-      {{ todo.done ? "✅ Valider" : "⏳ En cours" }}
+  <li class="row">
+    <strong class="col s3">{{ todo.title }}</strong> -
+    <span class="col s5">{{ todo.description }}</span>
+    <span class="col s2 {{ todo.done ? 'status-done' : 'status-pending' }}">
+        {{ todo.done ? '✅ Valider' : '⏳ En cours' }}
     </span>
 
-    <a href="{{ path('todo_edit', { id: todo.id }) }}">Modifier</a>
+    <a class="col s2" href="{{ path('todo_edit', { id: todo.id }) }}">Modifier</a>
 
     <form
       action="{{ path('todo_delete', { id: todo.id }) }}"
@@ -28,7 +29,7 @@ Todo List
       style="display: inline"
     >
       <input type="hidden" name="_method" value="DELETE" />
-      <input
+      <input class="col s2"
         type="hidden"
         name="_token"
         value="{{ csrf_token('delete' ~ todo.id) }}"

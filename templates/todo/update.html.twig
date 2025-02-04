@@ -3,17 +3,21 @@
 {% block title %}Modifier une tâche{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/todo.css') }}">
-{% endblock %}
+<link rel="stylesheet" href="{{ asset('css/todo.css') }}" />
+{% endblock %} 
 
 {% block body %}
     <h1>Modifier la tâche</h1>
     
     {{ form_start(form) }}
-        <div>
-            {{ form_label(form.title, 'Titre de la tâche') }}
-            {{ form_widget(form.title) }}
-        </div>
+    <div>
+        {{ form_label(form.title, 'Titre de la tâche') }}
+        {{ form_widget(form.title) }}
+    </div>
+    <div>
+        {{ form_label(form.description, 'Description') }}
+        {{ form_widget(form.description) }}
+    </div>
         <div>
             {{ form_label(form.done, 'Statut') }}
             {{ form_widget(form.done) }}

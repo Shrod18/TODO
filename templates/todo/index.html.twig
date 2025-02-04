@@ -2,6 +2,10 @@
 
 {% block title %}Todo List{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/todo.css') }}">
+{% endblock %}
+
 {% block body %}
     <h1>Todo List</h1>
     <a href="{{ path('todo_new') }}">Ajouter une nouvelle tâche</a>

@@ -28,7 +28,7 @@ class TodoController extends AbstractController
     /**
      * @Route("/todo/new", name="todo_new")
      */
-    public function new(Request $request): Response
+    public function create(Request $request): Response
     {
         $todo = new Todo();
         $form = $this->createForm(TodoType::class, $todo);
@@ -42,32 +42,35 @@ class TodoController extends AbstractController
             return $this->redirectToRoute('todo_index');
         }
 
-        return $this->render('todo/index.html.twig', [
+        return $this->render('todo/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/todo/{id}/edit", name="todo_edit")
-     */
-    public function edit(Todo $todo, Request $request): Response
-    {
-        $form = $this->createForm(TodoType::class, $todo);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Mettre à jour la tâche
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('todo_index');
-        }
-
-        return $this->render('todo/edit.html.twig', [
-            'todo' => $todo,
-            'form' => $form->createView(),
-        ]);
+ * @Route("/todo/{id}/edit", name="todo_edit")
+ */
+public function edit(int $id, TodoRepository $todoRepository, Request $request): Response
+{
+    $todo = $todoRepository->find($id);
+    if (!$todo) {
+        throw new NotFoundHttpException("Tâche introuvable !");
     }
+
+    $form = $this->createForm(TodoType::class, $todo);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $this->getDoctrine()->getManager()->flush();
+        return $this->redirectToRoute('todo_index');
+    }
+
+    return $this->render('todo/update.html.twig', [
+        'todo' => $todo,
+        'form' => $form->createView(),
+    ]);
+}
+
 
     /**
      * @Route("/todo/{id}/delete", name="todo_delete", methods={"DELETE"})

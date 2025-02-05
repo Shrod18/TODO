@@ -19,7 +19,11 @@ class TodoController extends AbstractController
      */
     public function index(TodoRepository $todoRepository, Request $request): Response
     {
-        $filter = $request->query->get('filter'); // Récupérer le filtre depuis l'URL
+
+        $filter = $request->query->get('filter'); // Filtre par statut
+        $search = $request->query->get('search'); // Recherche par texte
+        $queryBuilder = $todoRepository->createQueryBuilder('t');
+
 
         if ($filter === 'done') {
             $todos = $todoRepository->findBy(['done' => true]);
@@ -28,6 +32,12 @@ class TodoController extends AbstractController
         } else {
             $todos = $todoRepository->findAll();
         }
+        if ($search) {
+            $queryBuilder->andWhere('t.title LIKE :search OR t.description LIKE :search')
+                         ->setParameter('search', '%' . $search . '%');
+        }
+        $todos = $queryBuilder->getQuery()->getResult();
+
 
         return $this->render('todo/index.html.twig', [
             'todos' => $todos,

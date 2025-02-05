@@ -19,6 +19,11 @@ Todo List
       <option value="done" {{ app.request.get('filter') == 'done' ? 'selected' : '' }}>✅ Validées</option>
       <option value="pending" {{ app.request.get('filter') == 'pending' ? 'selected' : '' }}>⏳ En cours</option>
   </select>
+  <div>
+    <label for="search">Rechercher :</label>
+    <input type="text" name="search" id="search" value="{{ app.request.get('search') }}" placeholder="Rechercher une tâche...">
+    <button type="submit">Rechercher</button>
+  </div>
 </form>
 
 <ul>

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %} 
+{% block title %}
+Liste des Catégories
+{% endblock %} 
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/todo.css') }}" />
+{% endblock %} 
+
+{% block body %}
+<a class="col s2" href="{{ path('todo_index') }}">Todos</a>
+<a class="col s2" href="{{ path('user_index') }}">Utilisateurs</a>
+
+<h1>Liste des Catégories</h1>
+<a href="{{ path('category_new') }}">Ajouter une nouvelle categorie</a>
+
+<form method="get" action="{{ path('category_index') }}">
+<!-- Formulaire de filtre -->  
+  <div>
+    <label for="search">Rechercher :</label>
+    <input type="text" name="search" id="search" value="{{ app.request.get('search') }}" placeholder="Rechercher une catégorie...">
+    <button type="submit">Rechercher</button>
+  </div>
+</form>
+
+<ul>
+  {% for category in categories %}
+  <li class="row">
+    <strong class="col s3">{{ category.name }}</strong> -
+    <span class="col s5">{{ category.description }}</span>
+    
+
+    <a class="col s2" href="{{ path('category_edit', { id: category.id }) }}">Modifier</a>
+
+    <form
+      action="{{ path('category_delete', { id: category.id }) }}"
+      method="post"
+      style="display: inline"
+    >
+      <input type="hidden" name="_method" value="DELETE" />
+      <input class="col s2"
+        type="hidden"
+        name="_token"
+        value="{{ csrf_token('delete' ~ category.id) }}"
+      />
+      <button
+        type="submit"
+        onclick="return confirm('Voulez-vous vraiment supprimer cette catégorie ?');"
+      >
+        Supprimer
+      </button>
+    </form>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

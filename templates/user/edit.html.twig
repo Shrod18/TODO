@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un utilisateur{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/todo.css') }}" />
+{% endblock %} 
+
+{% block body %}
+    <h1>Modifier l'utilisateur</h1>
+    
+    {{ form_start(form) }}
+    <div>
+        {{ form_label(form.firstname, 'Prénom') }}
+        {{ form_widget(form.firstname) }}
+    </div>
+    <div>
+        {{ form_label(form.lastname, 'Nom') }}
+        {{ form_widget(form.lastname) }}
+    </div>
+    <div>
+        {{ form_label(form.phone, 'Téléphone') }}
+        {{ form_widget(form.phone) }}
+    </div>
+    <button type="submit">Mettre à jour</button>
+    {{ form_end(form) }}
+    <br>
+    <a href="{{ path('user_index') }}">Retour à la liste</a>
+{% endblock %}

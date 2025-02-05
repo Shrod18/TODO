@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier une catégorie{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/todo.css') }}" />
+{% endblock %} 
+
+{% block body %}
+    <h1>Modifier la tâche</h1>
+    
+    {{ form_start(form) }}
+    <div>
+        {{ form_label(form.name, 'Nom de la catégorie') }}
+        {{ form_widget(form.name) }}
+    </div>
+    <div>
+        {{ form_label(form.description, 'Description') }}
+        {{ form_widget(form.description) }}
+    </div>
+    <button type="submit">Mettre à jour</button>
+    {{ form_end(form) }}
+    <br>
+    <a href="{{ path('category_index') }}">Retour à la liste</a>
+{% endblock %}

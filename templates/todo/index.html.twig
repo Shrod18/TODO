@@ -8,6 +8,9 @@ Todo List
 {% endblock %} 
 
 {% block body %}
+<a class="col s2" href="{{ path('category_index') }}">Categories</a>
+<a class="col s2" href="{{ path('user_index') }}">Utilisateurs</a>
+
 <h1>Todo List</h1>
 <a href="{{ path('todo_new') }}">Ajouter une nouvelle tâche</a>
 

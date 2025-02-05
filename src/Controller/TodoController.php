@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Todo;
 use App\Form\TodoType;
@@ -21,22 +20,22 @@ class TodoController extends AbstractController
     {
 
         $filter = $request->query->get('filter'); // Filtre par statut
-    $search = $request->query->get('search'); // Recherche par texte
+        $search = $request->query->get('search'); // Recherche par texte
 
-    $queryBuilder = $todoRepository->createQueryBuilder('t');
+        $queryBuilder = $todoRepository->createQueryBuilder('t');
 
-    if ($filter === 'done') {
-        $queryBuilder->andWhere('t.done = :done')->setParameter('done', true);
-    } elseif ($filter === 'pending') {
-        $queryBuilder->andWhere('t.done = :done')->setParameter('done', false);
-    }
+        if ($filter === 'done') {
+            $queryBuilder->andWhere('t.done = :done')->setParameter('done', true);
+        } elseif ($filter === 'pending') {
+            $queryBuilder->andWhere('t.done = :done')->setParameter('done', false);
+        }
 
-    if ($search) {
-        $queryBuilder->andWhere('t.title LIKE :search OR t.description LIKE :search')
-                     ->setParameter('search', '%' . $search . '%');
-    }
+        if ($search) {
+            $queryBuilder->andWhere('t.title LIKE :search OR t.description LIKE :search')
+                ->setParameter('search', '%' . $search . '%');
+        }
 
-    $todos = $queryBuilder->getQuery()->getResult();
+        $todos = $queryBuilder->getQuery()->getResult();
 
 
         return $this->render('todo/index.html.twig', [

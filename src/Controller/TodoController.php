@@ -10,6 +10,7 @@ use App\Form\TodoType;
 use App\Repository\TodoRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TodoController extends AbstractController
 {
@@ -85,13 +86,11 @@ class TodoController extends AbstractController
      */
     public function delete(Request $request, TodoRepository $todoRepository, int $id): Response
     {
-        // Récupérer l'entité manuellement
         $todo = $todoRepository->find($id);
         if (!$todo) {
             throw $this->createNotFoundException("Tâche introuvable !");
         }
 
-        // Vérifier le token CSRF
         if ($this->isCsrfTokenValid('delete' . $todo->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($todo);

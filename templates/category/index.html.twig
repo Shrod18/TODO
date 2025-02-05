@@ -15,9 +15,7 @@ Category List
 <a href="{{ path('category_new') }}">Ajouter une nouvelle categorie</a>
 
 <form method="get" action="{{ path('category_index') }}">
-<!-- Formulaire de filtre -->  
-  <div>
-    <label for="search">Rechercher :</label>
+  <div class="flex">
     <input type="text" name="search" id="search" value="{{ app.request.get('search') }}" placeholder="Rechercher une catégorie...">
     <button type="submit">Rechercher</button>
   </div>

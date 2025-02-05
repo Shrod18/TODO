@@ -15,15 +15,13 @@ Todo List
 <a href="{{ path('todo_new') }}">Ajouter une nouvelle tâche</a>
 
 <form method="get" action="{{ path('todo_index') }}">
-<!-- Formulaire de filtre -->  
   <label for="filter">Filtrer par statut :</label>
   <select name="filter" id="filter" onchange="this.form.submit()">
       <option value="">Toutes</option>
       <option value="done" {{ app.request.get('filter') == 'done' ? 'selected' : '' }}>✅ Validées</option>
       <option value="pending" {{ app.request.get('filter') == 'pending' ? 'selected' : '' }}>⏳ En cours</option>
   </select>
-  <div>
-    <label for="search">Rechercher :</label>
+  <div class="flex">
     <input type="text" name="search" id="search" value="{{ app.request.get('search') }}" placeholder="Rechercher une tâche...">
     <button type="submit">Rechercher</button>
   </div>

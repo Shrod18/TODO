@@ -55,8 +55,7 @@ button {
   cursor: pointer;
   transition: background 0.3s ease;
   align-self: center;
-  margin-top: 15px;
-  width: 100%;
+  width: 80%;
   max-width: 200px;
 }
 
@@ -107,4 +106,18 @@ form div {
   box-sizing: border-box;
   padding: 0 0.75rem;
   min-height: 1px;
+}
+.flex {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+input[type="text"] {
+  padding: 10px;
+  margin : 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }

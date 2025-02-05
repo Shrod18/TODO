@@ -15,8 +15,7 @@ Users List
 <a href="{{ path('user_new') }}">Ajouter un nouvel utilisateur</a>
 
 <form method="get" action="{{ path('user_index') }}">
-  <div>
-    <label for="search">Rechercher :</label>
+  <div class="flex">
     <input type="text" name="search" id="search" value="{{ app.request.get('search') }}" placeholder="Rechercher un utilisateur...">
     <button type="submit">Rechercher</button>
   </div>

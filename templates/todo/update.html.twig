@@ -1,29 +1,31 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} 
 
-{% block title %}Modifier une tâche{% endblock %}
+{% block title %}
+Modifier une tâche
+{% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('css/todo.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/todo.css') }}" />
 {% endblock %} 
 
 {% block body %}
     <h1>Modifier la tâche</h1>
-    
+
     {{ form_start(form) }}
-    <div>
-        {{ form_label(form.title, 'Titre de la tâche') }}
-        {{ form_widget(form.title) }}
-    </div>
-    <div>
-        {{ form_label(form.description, 'Description') }}
-        {{ form_widget(form.description) }}
-    </div>
         <div>
-            {{ form_label(form.done, 'Statut') }}
+            {{ form_label(form.title, "Titre de la tâche") }}
+            {{ form_widget(form.title) }}
+        </div>
+        <div>
+            {{ form_label(form.description, "Description") }}
+            {{ form_widget(form.description) }}
+        </div>
+        <div class="flex">
+            {{ form_label(form.done, "Statut") }}
             {{ form_widget(form.done) }}
         </div>
         <button type="submit">Mettre à jour</button>
     {{ form_end(form) }}
-    <br>
+    <br />
     <a href="{{ path('todo_index') }}">Retour à la liste</a>
 {% endblock %}

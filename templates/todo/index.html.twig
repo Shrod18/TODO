@@ -36,7 +36,7 @@ Todo List
         {{ todo.done ? '✅ Valider' : '⏳ En cours' }}
     </span>
 
-    <a class="col s2" href="{{ path('todo_edit', { id: todo.id }) }}">Modifier</a>
+    <a href="{{ path('todo_edit', { id: todo.id }) }}">Modifier</a>
 
     <form
       action="{{ path('todo_delete', { id: todo.id }) }}"

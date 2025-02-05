@@ -66,8 +66,8 @@ class CategoryController extends AbstractController
         if (!$category) {
             throw new NotFoundHttpException("Categorie introuvable !");
         }
-
-        $form = $this->createForm(CategoryType::class, $category);
+        $form = $this->createForm(CategoryType::class, $category, ['is_edit' => true]);
+        // $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

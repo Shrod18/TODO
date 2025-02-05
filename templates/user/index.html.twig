@@ -28,8 +28,17 @@ Users List
     <span class="col s5">{{ user.lastname }}</span>
     <span class="col s5">{{ user.phone }}</span>
     
+    {% if user.todos is not empty %}
+      <ul>
+          {% for todo in user.todos %}
+              <li>{{ todo.title }}</li>
+          {% endfor %}
+      </ul>
+    {% else %}
+        Aucun todo assigné
+    {% endif %}
 
-    <a class="col s2" href="{{ path('user_edit', { id: user.id }) }}">Modifier</a>
+    <a href="{{ path('user_edit', { id: user.id }) }}">Modifier</a>
 
     <form
       action="{{ path('user_delete', { id: user.id }) }}"

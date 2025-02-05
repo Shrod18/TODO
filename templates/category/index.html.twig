@@ -27,8 +27,17 @@ Category List
     <strong class="col s3">{{ category.name }}</strong> -
     <span class="col s5">{{ category.description }}</span>
     
+    {% if category.todos is not empty %}
+      <ul>
+          {% for todo in category.todos %}
+              <li>{{ todo.title }}</li>
+          {% endfor %}
+      </ul>
+    {% else %}
+        Aucun todo assigné
+    {% endif %}
 
-    <a class="col s2" href="{{ path('category_edit', { id: category.id }) }}">Modifier</a>
+    <a href="{{ path('category_edit', { id: category.id }) }}">Modifier</a>
 
     <form
       action="{{ path('category_delete', { id: category.id }) }}"

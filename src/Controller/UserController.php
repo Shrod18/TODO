@@ -67,7 +67,6 @@ class UserController extends AbstractController
             throw new NotFoundHttpException("Utilisateur introuvable !");
         }
         $form = $this->createForm(UserType::class, $user, ['is_edit' => true]);
-        // $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

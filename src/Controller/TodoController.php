@@ -19,8 +19,8 @@ class TodoController extends AbstractController
     public function index(TodoRepository $todoRepository, Request $request): Response
     {
 
-        $filter = $request->query->get('filter'); // Filtre par statut
-        $search = $request->query->get('search'); // Recherche par texte
+        $filter = $request->query->get('filter'); 
+        $search = $request->query->get('search'); 
 
         $queryBuilder = $todoRepository->createQueryBuilder('t');
 

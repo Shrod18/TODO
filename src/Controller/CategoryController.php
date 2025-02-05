@@ -67,7 +67,6 @@ class CategoryController extends AbstractController
             throw new NotFoundHttpException("Categorie introuvable !");
         }
         $form = $this->createForm(CategoryType::class, $category, ['is_edit' => true]);
-        // $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -92,13 +91,12 @@ class CategoryController extends AbstractController
             throw $this->createNotFoundException("Catégorie introuvable !");
         }
     
-        // Désaffilier les todos avant suppression
         foreach ($category->getTodos() as $todo) {
             $todo->setCategory(null);
         }
     
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->flush(); // Mettre à jour la base
+        $entityManager->flush(); 
     
         if ($this->isCsrfTokenValid('delete' . $category->getId(), $request->request->get('_token'))) {
             $entityManager->remove($category);

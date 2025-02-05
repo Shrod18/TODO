@@ -86,17 +86,25 @@ class CategoryController extends AbstractController
      * @Route("/category/{id}/delete", name="category_delete", methods={"POST", "DELETE"})
      */
     public function delete(Request $request, CategoryRepository $categoryRepository, int $id): Response
-    {        $category = $categoryRepository->find($id);
+    {   
+        $category = $categoryRepository->find($id);
         if (!$category) {
             throw $this->createNotFoundException("Catégorie introuvable !");
         }
-
+    
+        // Désaffilier les todos avant suppression
+        foreach ($category->getTodos() as $todo) {
+            $todo->setCategory(null);
+        }
+    
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush(); // Mettre à jour la base
+    
         if ($this->isCsrfTokenValid('delete' . $category->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($category);
             $entityManager->flush();
         }
-
+    
         return $this->redirectToRoute('category_index');
     }
 }

@@ -30,10 +30,11 @@ class Todo
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="todos")
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="todos", cascade={"remove"})
+     * @ORM\JoinColumn(onDelete="CASCADE") 
      */
     private $category;
-  
+
     /**
      * @ORM\Column(type="boolean")
      */
@@ -129,5 +130,5 @@ class Todo
         return $this;
     }
 
-    
+
 }

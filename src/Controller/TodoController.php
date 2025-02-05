@@ -21,22 +21,22 @@ class TodoController extends AbstractController
     {
 
         $filter = $request->query->get('filter'); // Filtre par statut
-        $search = $request->query->get('search'); // Recherche par texte
-        $queryBuilder = $todoRepository->createQueryBuilder('t');
+    $search = $request->query->get('search'); // Recherche par texte
 
+    $queryBuilder = $todoRepository->createQueryBuilder('t');
 
-        if ($filter === 'done') {
-            $todos = $todoRepository->findBy(['done' => true]);
-        } elseif ($filter === 'pending') {
-            $todos = $todoRepository->findBy(['done' => false]);
-        } else {
-            $todos = $todoRepository->findAll();
-        }
-        if ($search) {
-            $queryBuilder->andWhere('t.title LIKE :search OR t.description LIKE :search')
-                         ->setParameter('search', '%' . $search . '%');
-        }
-        $todos = $queryBuilder->getQuery()->getResult();
+    if ($filter === 'done') {
+        $queryBuilder->andWhere('t.done = :done')->setParameter('done', true);
+    } elseif ($filter === 'pending') {
+        $queryBuilder->andWhere('t.done = :done')->setParameter('done', false);
+    }
+
+    if ($search) {
+        $queryBuilder->andWhere('t.title LIKE :search OR t.description LIKE :search')
+                     ->setParameter('search', '%' . $search . '%');
+    }
+
+    $todos = $queryBuilder->getQuery()->getResult();
 
 
         return $this->render('todo/index.html.twig', [
